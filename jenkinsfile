@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Maven test') {
             steps {
                 sh 'mvn test'
@@ -23,6 +22,14 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post {
+        success {
+            slackSend (color: '#java-project', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+        failure {
+            slackSend (color: '#java-project', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
     }
 }
