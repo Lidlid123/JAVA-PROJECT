@@ -19,7 +19,7 @@ pipeline {
                     nexusArtifactUploader(
                         nexusVersion: 'nexus3',
                         protocol: 'http',
-                        nexusUrl: 'http://3.87.223.250:8081',
+                        nexusUrl: '3.87.223.250:8081',
                         groupId: 'com.example',
                         version: "1.0-${buildNumber}",
                         repository: 'petstore',
