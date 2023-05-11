@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Maven test') {
             steps {
-                sh 'mvn test -P jenkins'
+                sh 'mvn clean  test -P jenkins'
             }
         }
         stage('Maven clean package') {
