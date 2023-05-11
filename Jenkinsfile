@@ -20,14 +20,14 @@ pipeline {
                         nexusVersion: 'nexus3',
                         protocol: 'http',
                         nexusUrl: 'http://3.87.223.250:8081/repository/petstore/',
-                        groupId: 'com.mycompany',
+                        groupId: 'com.example',
                         version: "1.0-${buildNumber}",
-                        repository: 'maven-snapshots',
+                        repository: 'petstore',
                         credentialsId: 'nexus-credentials',
                         artifacts: [
-                            [artifactId: 'my-artifact',
+                            [artifactId: 'petstore',
                             classifier: '',
-                            file: "target/my-artifact-1.0-${buildNumber}.war",
+                            file: "target/petstore-${buildNumber}.war",
                             type: 'war']
                         ]
                     )
