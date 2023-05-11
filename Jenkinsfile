@@ -38,7 +38,8 @@ pipeline {
             steps {
                 script {
                     def buildNumber = env.BUILD_NUMBER
-                    def image = docker.build("boomer12/petstore:${buildNumber}", "--build-arg BUILD_NUMBER=${buildNumber}")
+                    sh "sed -i 's/BUILD_NUMBER_PLACEHOLDER/${buildNumber}/g' Dockerfile"
+                    def image = docker.build("boomer12/petstore:${buildNumber}")
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         image.push()
                     }
