@@ -4,12 +4,34 @@ pipeline {
     stages {
         stage('Maven test') {
             steps {
-                sh 'mvn test'
+                sh 'mvn test -P jenkins'
             }
         }
         stage('Maven clean package') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -P jenkins'
+            }
+        }
+        stage('Upload to Nexus') {
+            steps {
+                script {
+                    def buildNumber = env.BUILD_NUMBER
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: 'http://3.87.223.250:8081/repository/petstore/',
+                        groupId: 'com.mycompany',
+                        version: "1.0-${buildNumber}",
+                        repository: 'maven-snapshots',
+                        credentialsId: 'nexus-credentials',
+                        artifacts: [
+                            [artifactId: 'my-artifact',
+                            classifier: '',
+                            file: "target/my-artifact-1.0-${buildNumber}.war",
+                            type: 'war']
+                        ]
+                    )
+                }
             }
         }
         stage('Docker build and push') {
