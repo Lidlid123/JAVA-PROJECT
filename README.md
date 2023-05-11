@@ -10,7 +10,6 @@ Technologies used:
 - Tomcat 
 - MySQL 
 - Kubernetes
-
-
+- Nexus sonartype repository 
 
 
