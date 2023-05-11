@@ -13,11 +13,7 @@
     <maven.compiler.target>11</maven.compiler.target>
 </properties>
 
-
-
-
   <dependencies>
-
 
 <dependency>
     <groupId>javax.servlet</groupId>
@@ -47,8 +43,17 @@
 
   </dependencies>
 
-
   <build>
-    <finalName>petstore</finalName>
+    <finalName>petstore-${buildNumber}</finalName>
   </build>
+
+  <profiles>
+      <profile>
+          <id>jenkins</id>
+          <properties>
+              <buildNumber>${env.BUILD_NUMBER}</buildNumber>
+          </properties>
+      </profile>
+  </profiles>
+
 </project>
